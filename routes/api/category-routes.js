@@ -9,8 +9,12 @@ router.get('/', (req, res) => {
   Category.findAll({
     include: [Product]
   })
-    .then(records => res.json(records))
-    .catch(err => res.status(500).json(err))
+    .then(records => {
+      console.log(records)
+      res.json(records)})
+    .catch(err => {
+      console.log(err)
+      res.status(500).json(err)})
 });
 
 router.get('/:id', (req, res) => {
@@ -52,7 +56,7 @@ router.delete('/:id', (req, res) => {
   // delete a category by its `id` value
   Category.destroy({
     where: {
-      id: id.params.id
+      id: req.params.id
     }
   })
     .then(records => res.json(records))
